@@ -1,0 +1,31 @@
+<div class="container" ng-controller="ListNoteController">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="card-title">Notes</h5>
+        </div>
+
+        <div class="card-body">
+
+            <h6 class="card-subtitle mb-2 text-muted">Add note</h6>
+            <div class="input-group mb-3">
+                <input ng-model="noteText"
+                       type="text"
+                       class="form-control"
+                       placeholder="Note's name"
+                       aria-label="Note's name"
+                       aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button ng-click="addNote()" class="btn btn-outline-secondary" type="button">Add Note</button>
+                </div>
+            </div>
+
+            <div ng-repeat="note in notes">
+                <span>{{note}}</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
