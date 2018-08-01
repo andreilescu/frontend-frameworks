@@ -3,26 +3,70 @@
     <div class="card">
 
         <div class="card-header">
-            <h5 class="card-title">Notes</h5>
+            Notes
         </div>
 
         <div class="card-body">
 
-            <h6 class="card-subtitle mb-2 text-muted">Add note</h6>
-            <div class="input-group mb-3">
-                <input ng-model="noteText"
-                       type="text"
-                       class="form-control"
-                       placeholder="Note's name"
-                       aria-label="Note's name"
-                       aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button ng-click="addNote()" class="btn btn-outline-secondary" type="button">Add Note</button>
+
+            <div class="accordion" id="accordionNote">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#collapseOne"
+                                    aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                Add note
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                         data-parent="#accordionNote">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="titleId">Note Title</label>
+                                <input id="titleId"
+                                       ng-model="note.title"
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="Note title"
+                                       aria-label="Note title"
+                                       aria-describedby="basic-addon2">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descriptionId">Note Description</label>
+                                <textarea id="descriptionId"
+                                          ng-model="note.description"
+                                          class="form-control"
+                                          aria-label="Note description">
+                                </textarea>
+                            </div>
+
+                            <button ng-click="addNote()" class="btn btn btn-primary" type="button">
+                                Add Note
+                            </button>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div ng-repeat="note in notes">
-                <span>{{note}}</span>
+            <div class="card mt-5">
+                <div class="card-header">
+                    List of Notes
+                </div>
+
+                <div class="card-body">
+                    <div ng-repeat="note in notes">
+                        <span>{{note.title}}</span>
+                    </div>
+                </div>
             </div>
 
         </div>
