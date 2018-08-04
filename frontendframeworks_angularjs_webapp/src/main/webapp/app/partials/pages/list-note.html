@@ -8,63 +8,77 @@
 
         <div class="card-body">
 
+            <div class="card">
+                
+                <div class="accordion" id="accordionNote">
+                    
+                    <div class="card">
+                        <div class="card-header" id="headingTitle">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link"
+                                        type="button"
+                                        data-toggle="collapse"
+                                        data-target="#collapseOne"
+                                        aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                    Add note
+                                </button>
+                            </h5>
+                        </div>
 
-            <div class="accordion" id="accordionNote">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link"
-                                    type="button"
-                                    data-toggle="collapse"
-                                    data-target="#collapseOne"
-                                    aria-expanded="true"
-                                    aria-controls="collapseOne">
-                                Add note
-                            </button>
-                        </h5>
-                    </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingTitle"
+                             data-parent="#accordionNote">
+                            <div class="card-body">
 
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                         data-parent="#accordionNote">
-                        <div class="card-body">
+                                <ng-form name="addNoteForm">
+                                    <div class="form-group">
+                                        <label for="titleId">Note Title</label>
+                                        <input ng-model="note.title"
+                                               required
+                                               id="titleId"
+                                               type="text"
+                                               class="form-control"
+                                               aria-describedby="basic-addon2">
+                                    </div>
 
-                            <div class="form-group">
-                                <label for="titleId">Note Title</label>
-                                <input id="titleId"
-                                       ng-model="note.title"
-                                       type="text"
-                                       class="form-control"
-                                       placeholder="Note title"
-                                       aria-label="Note title"
-                                       aria-describedby="basic-addon2">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="descriptionId">Note Description</label>
-                                <textarea id="descriptionId"
-                                          ng-model="note.description"
-                                          class="form-control"
-                                          aria-label="Note description">
+                                    <div class="form-group">
+                                        <label for="descriptionId">Note Description</label>
+                                        <textarea ng-model="note.description"
+                                                  required
+                                                  id="descriptionId"
+                                                  class="form-control">
                                 </textarea>
+                                    </div>
+
+                                    <button ng-click="addNote()"
+                                            enabled="addNoteForm.$valid"
+                                            ng-class="{disabled: !addNoteForm.$valid}"
+                                            class="btn btn btn-primary"
+                                            type="button">
+                                        Add Note
+                                    </button>
+                                </ng-form>
+
                             </div>
-
-                            <button ng-click="addNote()" class="btn btn btn-primary" type="button">
-                                Add Note
-                            </button>
-
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card mt-5">
+            <div class="card mt-5" ng-if="notes && notes.length !== 0">
                 <div class="card-header">
                     List of Notes
                 </div>
 
                 <div class="card-body">
-                    <div ng-repeat="note in notes">
-                        <span>{{note.title}}</span>
+                    <div class="list-group">
+                        <div ng-repeat="note in notes">
+                            <a ng-click="navigateToNote(note.id)"
+                               class="list-group-item list-group-item-action"
+                               href="">
+                                {{note.title}}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

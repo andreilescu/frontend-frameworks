@@ -1,28 +1,30 @@
-angular.module('frontendframeworks').controller('ListNoteController', ['$scope',
+angular.module('frontendframeworks').controller('ListNoteController', ['$scope', '$location',
 
-    function($scope) {
+    function($scope, $location) {
         'use strict';
 
         $scope.note = {};
 
-        $scope.notes = [
-            {
-                "title": 'Note Title 1',
-                "description": 'Note Description 1'
-            },
-            {
-                "title": 'Note Title 2',
-                "description": 'Note Title 2'
-            }
-        ];
-
         $scope.addNote = function() {
-            $scope.notes.push(angular.copy($scope.note));
+            $scope.incrementNoteIndex();
+            $scope.copyAndUpdateNotes();
             $scope.resetNote();
+        };
+
+        $scope.copyAndUpdateNotes = function() {
+            $scope.notes.push($scope.note);
+        };
+
+        $scope.incrementNoteIndex = function() {
+            $scope.note.id = $scope.notes.length + 1;
         };
 
         $scope.resetNote = function() {
             $scope.note = {};
+        };
+
+        $scope.navigateToNote = function(noteId) {
+            $location.path("/notes/" + noteId);
         };
 
     }]);

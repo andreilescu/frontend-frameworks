@@ -1,0 +1,57 @@
+<div class="container" ng-controller="NoteController">
+
+    <div class="card">
+
+        <div class="card-header">
+            Note Details
+        </div>
+
+        <div class="card-body">
+
+            <div class="card">
+
+                <button ng-click="navigateBack()"
+                        type="button"
+                        class="btn btn-primary">
+                    < Back
+                </button>
+
+                <div class="card-body">
+
+                    <ng-form name="editNoteForm">
+
+                        <div class="form-group">
+                            <label for="titleId">Note Title</label>
+                            <input ng-model="note.title"
+                                   required
+                                   id="titleId"
+                                   type="text"
+                                   class="form-control"
+                                   aria-describedby="basic-addon2">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descriptionId">Note Description</label>
+                            <textarea ng-model="note.description"
+                                      required
+                                      id="descriptionId"
+                                      class="form-control">
+                                </textarea>
+                        </div>
+
+                        <button ng-click="editNote()"
+                                enabled="editNoteForm.$valid"
+                                ng-class="{disabled: !editNoteForm.$valid}"
+                                class="btn btn btn-primary"
+                                type="button">
+                            Edit Note
+                        </button>
+
+                    </ng-form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

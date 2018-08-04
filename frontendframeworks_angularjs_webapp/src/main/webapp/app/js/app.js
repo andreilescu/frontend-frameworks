@@ -7,6 +7,9 @@
                 .when('/', {
                     templateUrl: 'partials/pages/list-note.html'
                 })
+                .when('/notes/:noteId', {
+                    templateUrl: 'partials/pages/note.html'
+                })
                 .otherwise({
                     templateUrl: 'partials/pages/list-note.html'
                 });
