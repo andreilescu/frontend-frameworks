@@ -20,6 +20,7 @@
 
   <modules>
     <module>frontendframeworks_angularjs_webapp</module>
+      <module>frontedframeworks_vuejs_webapp</module>
   </modules>
 
   <dependencies>
