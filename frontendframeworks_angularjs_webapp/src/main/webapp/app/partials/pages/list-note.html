@@ -9,9 +9,9 @@
         <div class="card-body">
 
             <div class="card">
-                
+
                 <div class="accordion" id="accordionNote">
-                    
+
                     <div class="card">
                         <div class="card-header" id="headingTitle">
                             <h5 class="mb-0">
@@ -71,16 +71,40 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="list-group">
-                        <div ng-repeat="note in notes">
-                            <a ng-click="navigateToNote(note.id)"
-                               class="list-group-item list-group-item-action"
-                               href="">
-                                {{note.title}}
-                            </a>
-                        </div>
-                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col"></th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="note in notes">
+                            <td>
+                                <a ng-click="navigateToNote(note.id)"
+                                   href="">
+                                    {{note.title}}
+                                </a>
+                            </td>
+                            <td>
+                                <a ng-click="navigateToNote(note.id)"
+                                   href="">
+                                    {{note.description}}
+                                </a>
+                            </td>
+                            <td class="float-right">
+                                <button ng-click="deleteNote(note.id)"
+                                        type="button"
+                                        class="btn btn-danger">
+                                    Remove
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
                 </div>
+
             </div>
 
         </div>

@@ -42,11 +42,9 @@
                         </goals>
                         <phase>generate-resources</phase>
 
-
                         <configuration>
                             <nodeVersion>${node.version}</nodeVersion>
                         </configuration>
-
                     </execution>
 
                     <!-- Running npm -->
@@ -77,16 +75,6 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <packagingExcludes>node_modules/</packagingExcludes>
-                    <warSourceDirectory>${project.basedir}/src/main/webapp/dist</warSourceDirectory>
-                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

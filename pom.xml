@@ -49,6 +49,7 @@
   <build>
     <pluginManagement>
       <plugins>
+
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.0.0</version>
@@ -62,19 +63,6 @@
           <version>2.5.2</version>
         </plugin>
 
-        <plugin>
-          <groupId>org.apache.tomcat.maven</groupId>
-          <artifactId>tomcat7-maven-plugin</artifactId>
-          <version>2.2</version>
-          <configuration>
-            <url>http://localhost:8080/manager/text</url>
-            <username>tomcat</username>
-            <password>s3cret</password>
-            <path>/${project.build.finalName}</path>
-            <backgroundProcessorDelay>5</backgroundProcessorDelay>
-            <contextReloadable>true</contextReloadable>
-          </configuration>
-        </plugin>
       </plugins>
     </pluginManagement>
   </build>

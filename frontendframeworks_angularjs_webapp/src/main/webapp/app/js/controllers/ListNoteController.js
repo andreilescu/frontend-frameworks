@@ -1,30 +1,53 @@
-angular.module('frontendframeworks').controller('ListNoteController', ['$scope', '$location',
+angular.module('frontendframeworks').controller('ListNoteController', ['$scope', '$location', 'NoteService',
 
-    function($scope, $location) {
+    function($scope, $location, noteService) {
         'use strict';
 
+        var NOTES = "/notes";
+        $scope.notes = [];
         $scope.note = {};
 
         $scope.addNote = function() {
-            $scope.incrementNoteIndex();
-            $scope.copyAndUpdateNotes();
-            $scope.resetNote();
+            noteService.addNote($scope.note).then(
+                function() {
+                    resetNote();
+                    getNotes();
+                },
+                function(error) {
+                    console.error(error);
+                });
         };
 
-        $scope.copyAndUpdateNotes = function() {
-            $scope.notes.push($scope.note);
-        };
-
-        $scope.incrementNoteIndex = function() {
-            $scope.note.id = $scope.notes.length + 1;
-        };
-
-        $scope.resetNote = function() {
-            $scope.note = {};
+        $scope.deleteNote = function(noteId) {
+            noteService.deleteNote(noteId).then(
+                function(response) {
+                    console.log("Note deleted");
+                    getNotes();
+                },
+                function(error) {
+                    console.error(error);
+                });
         };
 
         $scope.navigateToNote = function(noteId) {
-            $location.path("/notes/" + noteId);
+            $location.path(NOTES + '/' + noteId);
         };
 
+        function resetNote() {
+            $scope.note = {};
+        }
+
+        function getNotes() {
+            noteService.getNotes().then(function(response) {
+                $scope.notes = response.data;
+            }, function(error) {
+                console.error(error);
+            });
+        }
+
+        function initialize() {
+            getNotes();
+        }
+
+        initialize();
     }]);
