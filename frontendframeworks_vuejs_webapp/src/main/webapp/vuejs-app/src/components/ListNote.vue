@@ -1,14 +1,107 @@
 <template>
-    <div class="hello">
 
-        <input v-model="note.title"/>
-        <input v-model="note.description"/>
+    <div class="container">
 
-        <button v-on:click="bar()">Add note</button>
+        <div class="card">
 
-        <div v-for="note in notes">
-            <span>{{note.title}}</span>
-            <span>{{note.description}}</span>
+            <div class="card-header">
+                Notes
+            </div>
+
+            <div class="card-body">
+
+                <div class="card">
+
+                    <div class="accordion" id="accordionNote">
+                        <div class="card">
+                            <div class="card-header" id="headingTitle">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapseOne"
+                                            aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                        Add note
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOne"
+                                 class="collapse show"
+                                 aria-labelledby="headingTitle"
+                                 data-parent="#accordionNote">
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="titleId">Note Title</label>
+                                        <input v-model="note.title"
+                                               type="text"
+                                               id="titleId"
+                                               class="form-control"
+                                               aria-describedby="basic-addon2"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="descriptionId">Note Description</label>
+                                        <textarea v-model="note.description"
+                                                  id="descriptionId"
+                                                  class="form-control">
+                                        </textarea>
+                                    </div>
+
+                                    <button v-on:click="bar()"
+                                            type="button"
+                                            class="btn btn btn-primary">
+                                        Add Note
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-5" v-if="notes && notes.length !== 0">
+
+                    <div class="card-header">
+                        List of Notes
+                    </div>
+
+                    <div class="card-body">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <th scope="col">Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col"></th>
+                            </thead>
+
+                            <tbody>
+                            <tr v-for="note in notes">
+                                <td>
+                                    <a href="">
+                                        {{note.title}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="">
+                                        {{note.description}}
+                                    </a>
+                                </td>
+                                <td class="float-right">
+                                    <button v-on:click=""
+                                            type="button"
+                                            class="btn btn-danger">
+                                        Remove
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
     </div>
