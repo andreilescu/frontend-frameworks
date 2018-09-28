@@ -1,0 +1,59 @@
+<div class="container">
+
+  <div class="card">
+
+    <div class="card-header">
+      Note Details
+    </div>
+
+    <div class="card-body">
+
+      <div class="card">
+
+        <button (click)="navigateBack()"
+                type="button"
+                class="btn btn-primary">
+          < Back
+        </button>
+
+        <div class="card-body">
+
+          <form #editNoteForm="ngForm">
+
+            <div class="form-group">
+              <label for="titleId">Note Title</label>
+              <input [(ngModel)]="note.title"
+                     name="title"
+                     required
+                     id="titleId"
+                     type="text"
+                     class="form-control"
+                     aria-describedby="basic-addon2">
+            </div>
+
+            <div class="form-group">
+              <label for="descriptionId">Note Description</label>
+              <textarea [(ngModel)]="note.description"
+                        name="description"
+                        required
+                        id="descriptionId"
+                        class="form-control">
+              </textarea>
+            </div>
+
+            <button (click)="editNote()"
+                    [disabled]="!editNoteForm.valid"
+                    [ngClass]="{disabled: !editNoteForm.valid}"
+                    class="btn btn btn-primary"
+                    type="button">
+              Edit Note
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

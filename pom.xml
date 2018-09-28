@@ -21,6 +21,7 @@
     <modules>
         <module>frontendframeworks_angularjs_webapp</module>
         <module>frontendframeworks_vuejs_webapp</module>
+        <module>frontendframeworks_angular_webapp</module>
     </modules>
 
     <dependencies>
