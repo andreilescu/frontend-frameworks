@@ -112,50 +112,42 @@
 
 <script>
 
+    import {addNote, getNotes, removeNote} from '../services/NoteService'
+
     export default {
         name: 'ListNote',
         methods: {
 
             getNotes() {
-
-                // TODO extract to service / util
-                const HOST = "http://localhost";
-                const PORT = "8081";
-                const PROXY = HOST + ":" + PORT;
-                const NOTES = "/notes";
-                const url = PROXY + NOTES;
-
-                // get all notes from db
-                this.$http.get(url).then((response) => {
-                    this.notes = response.data;
-                });
+                getNotes()
+                    .then(response => {
+                        this.notes = response.data;
+                    })
+                    .catch(() => {
+                        // error handler
+                    });
             },
+
             addNote() {
 
-                // TODO extract to service / util
-                const HOST = "http://localhost";
-                const PORT = "8081";
-                const PROXY = HOST + ":" + PORT;
-                const NOTES = "/notes";
-                const url = PROXY + NOTES;
-
-                this.$http.post(url, this.note).then(() => {
-                    this.notes = this.getNotes();
-                    this.note = {};
-                });
+                addNote(this.note)
+                    .then(() => {
+                        this.getNotes();
+                        this.note = {};
+                    })
+                    .catch(() => {
+                        // error handler
+                    });
             },
             removeNote(noteId) {
 
-                // TODO extract to service / util
-                const HOST = "http://localhost";
-                const PORT = "8081";
-                const PROXY = HOST + ":" + PORT;
-                const NOTES = "/notes";
-                const url = PROXY + NOTES + '/' + noteId;
-
-                this.$http.delete(url).then(() => {
-                    this.notes = this.getNotes();
-                });
+                removeNote(noteId)
+                    .then(() => {
+                        this.getNotes();
+                    })
+                    .catch(() => {
+                        // error handler
+                    });
             }
         },
         data: function () {

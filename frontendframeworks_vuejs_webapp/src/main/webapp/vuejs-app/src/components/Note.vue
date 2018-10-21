@@ -46,40 +46,33 @@
 
 <script>
 
+    import {getNote, updateNote} from "../services/NoteService";
+
     export default {
         name: 'Note',
         methods: {
 
             getNote() {
 
-
                 const noteId = this.$route.query.uid;
-
-
-                // TODO extract to service / util
-                const HOST = "http://localhost";
-                const PORT = "8081";
-                const PROXY = HOST + ":" + PORT;
-                const NOTES = "/notes";
-                const url = PROXY + NOTES + '/' + noteId;
-
-                // get all notes from db
-                this.$http.get(url).then((response) => {
-                    this.note = response.data;
-                });
+                getNote(noteId)
+                    .then(response => {
+                        this.note = response.data;
+                    })
+                    .catch(() => {
+                        // error handler
+                    });
             },
 
             editNote() {
 
-                // TODO extract to service / util
-                const HOST = "http://localhost";
-                const PORT = "8081";
-                const PROXY = HOST + ":" + PORT;
-                const NOTES = "/notes";
-                const url = PROXY + NOTES + '/' + this.note.id;
-
-                // update note information
-                this.$http.put(url, this.note);
+                updateNote(this.note)
+                    .then(() => {
+                        this.getNote();
+                    })
+                    .catch(() => {
+                        // error handler
+                    });
             }
         },
         data: function () {
