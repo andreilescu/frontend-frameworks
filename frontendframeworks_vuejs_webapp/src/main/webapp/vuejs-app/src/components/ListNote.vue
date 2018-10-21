@@ -50,7 +50,7 @@
                                         </textarea>
                                     </div>
 
-                                    <button v-on:click="bar()"
+                                    <button v-on:click="addNote()"
                                             type="button"
                                             class="btn btn btn-primary">
                                         Add Note
@@ -80,16 +80,18 @@
                             <tr v-for="note in notes">
                                 <td>
                                     <a href="">
-                                        {{note.title}}
+                                        <router-link :to="{path: 'note', query: {uid: note.id }}">{{note.title}}
+                                        </router-link>
                                     </a>
                                 </td>
                                 <td>
                                     <a href="">
-                                        {{note.description}}
+                                        <router-link :to="{path: 'note', query: {uid: note.id }}">{{note.description}}
+                                        </router-link>
                                     </a>
                                 </td>
                                 <td class="float-right">
-                                    <button v-on:click=""
+                                    <button v-on:click="removeNote(note.id)"
                                             type="button"
                                             class="btn btn-danger">
                                         Remove
@@ -113,12 +115,50 @@
     export default {
         name: 'ListNote',
         methods: {
-            bar() {
-                this.notes.push(this.note);
-                this.note = {};
+
+            getNotes() {
+
+                // TODO extract to service / util
+                const HOST = "http://localhost";
+                const PORT = "8081";
+                const PROXY = HOST + ":" + PORT;
+                const NOTES = "/notes";
+                const url = PROXY + NOTES;
+
+                // get all notes from db
+                this.$http.get(url).then((response) => {
+                    this.notes = response.data;
+                });
+            },
+            addNote() {
+
+                // TODO extract to service / util
+                const HOST = "http://localhost";
+                const PORT = "8081";
+                const PROXY = HOST + ":" + PORT;
+                const NOTES = "/notes";
+                const url = PROXY + NOTES;
+
+                this.$http.post(url, this.note).then(() => {
+                    this.notes = this.getNotes();
+                    this.note = {};
+                });
+            },
+            removeNote(noteId) {
+
+                // TODO extract to service / util
+                const HOST = "http://localhost";
+                const PORT = "8081";
+                const PROXY = HOST + ":" + PORT;
+                const NOTES = "/notes";
+                const url = PROXY + NOTES + '/' + noteId;
+
+                this.$http.delete(url).then(() => {
+                    this.notes = this.getNotes();
+                });
             }
         },
-        data: function() {
+        data: function () {
             return {
                 notes: [],
                 note: {
@@ -126,6 +166,9 @@
                     description: ''
                 }
             }
+        },
+        beforeMount() {
+            this.getNotes();
         }
     }
 

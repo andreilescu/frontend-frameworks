@@ -1,19 +1,15 @@
 <template>
     <div id="app">
-        <list-note/>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import ListNote from './components/ListNote.vue'
-
     export default {
         name: 'app',
-        components: {
-            ListNote
-        }
     }
 </script>
 
-<style>
+<style lang="scss">
+    @import '../node_modules/bootstrap/scss/bootstrap.scss';
 </style>
