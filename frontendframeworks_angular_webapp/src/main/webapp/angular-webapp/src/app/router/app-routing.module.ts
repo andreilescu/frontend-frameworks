@@ -8,34 +8,34 @@ import {NoteComponent} from "../components/note/note.component";
 
 
 const routes: Routes = [
-  {
-    path: 'notes',
-    component: ListNoteComponent
-  },
-  {
-    path: 'notes/:id',
-    component: NoteComponent
-  },
-  {
-    path: '',
-    redirectTo: '/notes',
-    pathMatch: 'full'
-  }
+    {
+        path: 'notes',
+        component: ListNoteComponent
+    },
+    {
+        path: 'notes/:id',
+        component: NoteComponent
+    },
+    {
+        path: '',
+        redirectTo: '/notes',
+        pathMatch: 'full'
+    }
 ];
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    RouterModule.forRoot(routes,
-      {
-        enableTracing: true
-      })
-  ],
-  exports: [
-    RouterModule
-  ]
+    imports: [
+        CommonModule,
+        BrowserModule,
+        RouterModule.forRoot(routes,
+            {
+                enableTracing: false
+            })
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class AppRoutingModule {
 }
