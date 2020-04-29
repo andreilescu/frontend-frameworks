@@ -10,7 +10,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class NoteComponent implements OnInit {
 
-    note = {};
+    note = {title: '', description: ''};
     private noteId: string;
 
     constructor(private noteService: NoteService,

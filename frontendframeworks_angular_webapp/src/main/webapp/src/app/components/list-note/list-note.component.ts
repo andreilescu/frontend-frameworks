@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 })
 export class ListNoteComponent implements OnInit {
 
-    note = {};
+    note = { title: '', description: ''};
     notes = [];
 
     constructor(private noteService: NoteService,
@@ -48,6 +48,7 @@ export class ListNoteComponent implements OnInit {
     }
 
     private resetNote() {
+        // @ts-ignore
         this.note = {};
     }
 

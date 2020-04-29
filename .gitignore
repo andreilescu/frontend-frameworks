@@ -12,3 +12,14 @@
 
 # dependencies
 **/node_modules
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.ipr
+
+# spring project
+HELP.md
+!**.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
