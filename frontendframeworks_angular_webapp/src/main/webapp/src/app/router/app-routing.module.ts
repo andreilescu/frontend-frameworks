@@ -5,6 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 
 import {ListNoteComponent} from "../components/list-note/list-note.component";
 import {NoteComponent} from "../components/note/note.component";
+import {ListAccountSnapshotComponent} from "../components/list-account-snapshot/list-account-snapshot.component";
 
 
 const routes: Routes = [
@@ -17,8 +18,12 @@ const routes: Routes = [
         component: NoteComponent
     },
     {
+        path: 'accountSnapshots',
+        component: ListAccountSnapshotComponent
+    },
+    {
         path: '',
-        redirectTo: '/notes',
+        redirectTo: 'accountSnapshots',
         pathMatch: 'full'
     }
 ];

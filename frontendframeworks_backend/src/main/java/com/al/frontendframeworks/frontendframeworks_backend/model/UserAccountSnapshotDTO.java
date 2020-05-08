@@ -1,6 +1,7 @@
 package com.al.frontendframeworks.frontendframeworks_backend.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class UserAccountSnapshotDTO {
 

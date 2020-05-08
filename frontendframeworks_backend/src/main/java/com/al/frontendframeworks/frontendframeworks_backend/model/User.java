@@ -13,7 +13,7 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Set<UserAccountSnapshot> accountSnapshots;
 
     public Integer getId() {

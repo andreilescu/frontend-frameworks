@@ -23,6 +23,10 @@ export class ListNoteComponent implements OnInit {
                 private router: Router) {
     }
 
+    ngOnInit() {
+        this.getNotes();
+    }
+
     getNotes() {
         this.noteService.getNotes().then(result => this.notes = result);
     }
@@ -51,9 +55,4 @@ export class ListNoteComponent implements OnInit {
         // @ts-ignore
         this.note = {};
     }
-
-    ngOnInit() {
-        this.getNotes();
-    }
-
 }

@@ -29,4 +29,5 @@ Build frontendframeworks webapp:
         docker image build -t frontendframeworks_angular_webapp .
     - run
         docker container run -p 8081:8080 --name frontendframeworks_angular_webapp -d frontendframeworks_angular_webapp
-    
+    - open webapp locally
+        http://localhost:8081/frontendframeworks_angular_webapp

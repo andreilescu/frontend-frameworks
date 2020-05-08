@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
 export class NoteService {
 
     HOST = "http://localhost";
-    PORT = "8081";
+    PORT = "8080";
     PROXY = this.HOST + ":" + this.PORT;
     NOTES = "/notes";
     url = this.PROXY + this.NOTES;
@@ -22,7 +22,6 @@ export class NoteService {
                 return response;
             });
     }
-
 
     public getNote(noteId): Promise<any> {
         return this.httpClient.get(this.url + '/' + noteId)
