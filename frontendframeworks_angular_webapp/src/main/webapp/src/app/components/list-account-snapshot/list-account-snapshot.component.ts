@@ -22,15 +22,17 @@ export class ListAccountSnapshotComponent implements OnInit {
 
       const labels = result.dateLabels;
       const dataSets = new Array;
-      const mapObjectToMap = ( obj => {
+      const mapObjectToMap = (obj => {
         const mp = new Map;
-        Object.keys ( obj ). forEach (k => { mp.set(k, obj[k]) });
+        Object.keys(obj).forEach(k => {
+          mp.set(k, obj[k])
+        });
         return mp;
       });
       const map = mapObjectToMap(result.snapshotsByUser)
       map.forEach((value, key) => {
-          dataSets.push({label: key, data: value});
-        })
+        dataSets.push({label: key, data: value});
+      })
 
       const dataStyles = [
         {
@@ -69,14 +71,16 @@ export class ListAccountSnapshotComponent implements OnInit {
 
       const labels = result.dateLabels;
       const dataSets = new Array;
-      const mapObjectToMap = ( obj => {
+      const mapObjectToMap = (obj => {
         const mp = new Map;
-        Object.keys ( obj ). forEach (k => { mp.set(k, obj[k]) });
+        Object.keys(obj).forEach(k => {
+          mp.set(k, obj[k])
+        });
         return mp;
       });
       const map = mapObjectToMap(result.snapshotsByUser)
       map.forEach((value, key) => {
-        dataSets.push({label: key, data: value, backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"]});
+        dataSets.push({label: key, data: value});
       })
 
       const dataStyles = [

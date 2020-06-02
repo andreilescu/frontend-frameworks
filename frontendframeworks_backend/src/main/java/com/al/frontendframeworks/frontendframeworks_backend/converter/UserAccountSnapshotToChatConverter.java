@@ -14,11 +14,11 @@ import static java.util.stream.Collectors.toList;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 
 @Component
-public class UserAccountSnapshotToChatConvertor {
+public class UserAccountSnapshotToChatConverter {
 
     private static final String ALL = "All";
 
-    public UserAccountSnapshotChatDTO convertSnapshotToLineChar(final List<UserAccountSnapshotDTO> snapshots) {
+    public UserAccountSnapshotChatDTO convertSnapshotToLineChart(final List<UserAccountSnapshotDTO> snapshots) {
         final Map<String, List<Integer>> simplifiedSnapshots = snapshots.stream()
                 .collect(groupingBy(UserAccountSnapshotDTO::getUser))
                 .entrySet().stream()
@@ -39,8 +39,8 @@ public class UserAccountSnapshotToChatConvertor {
         return snapshotLine;
     }
 
-    public UserAccountSnapshotChatDTO convertSnapshotToBarChar(final Map<UserDTO, List<Integer>> userAmountPerYear,
-                                                               final Map<UserDTO, Map<Integer, List<UserAccountSnapshotDTO>>> groupByUserAndYear) {
+    public UserAccountSnapshotChatDTO convertSnapshotToBarChart(final Map<UserDTO, List<Integer>> userAmountPerYear,
+                                                                final Map<UserDTO, Map<Integer, List<UserAccountSnapshotDTO>>> groupByUserAndYear) {
         final Map<String, List<Integer>> simplifiedSnapshots = userAmountPerYear.entrySet().stream()
                 .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey().getName(),
                         entry.getValue()))

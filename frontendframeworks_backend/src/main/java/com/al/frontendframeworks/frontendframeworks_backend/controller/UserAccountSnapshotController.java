@@ -49,14 +49,14 @@ public class UserAccountSnapshotController extends AbstractController {
 
     @GetMapping("/asLine")
     @ResponseBody
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsFormatAsLine() {
-        return userAccountSnapshotFacade.getAllSummedByAssertsFormatAsLineChat();
+    public UserAccountSnapshotChatDTO getAllSummedByAssertsAsLineChart() {
+        return userAccountSnapshotFacade.getAllSummedByAssertsAsLineChart();
     }
 
     @GetMapping("/years")
     @ResponseBody
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYear() {
-        return userAccountSnapshotFacade.getAllSummedByAssertsGroupByYearAsBarChat();
+    public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYearAsBarChart() {
+        return userAccountSnapshotFacade.getAllSummedByAssertsGroupByYearAsBarChart();
     }
 
     @DeleteMapping

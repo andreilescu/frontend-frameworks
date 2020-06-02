@@ -1,6 +1,6 @@
 package com.al.frontendframeworks.frontendframeworks_backend.facade;
 
-import com.al.frontendframeworks.frontendframeworks_backend.converter.UserAccountSnapshotToChatConvertor;
+import com.al.frontendframeworks.frontendframeworks_backend.converter.UserAccountSnapshotToChatConverter;
 import com.al.frontendframeworks.frontendframeworks_backend.model.*;
 import com.al.frontendframeworks.frontendframeworks_backend.repository.UserAccountSnapshotRepository;
 import com.al.frontendframeworks.frontendframeworks_backend.repository.UserRepository;
@@ -25,7 +25,7 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserAccountSnapshotToChatConvertor convertor;
+    private UserAccountSnapshotToChatConverter converter;
 
     public void addUserAccountSnapshot(final UserAccountSnapshotRequestDTO request) {
         userRepository.findById(request.getUserId())
@@ -60,12 +60,11 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
                 .collect(toList());
     }
 
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsFormatAsLineChat() {
-        final List<UserAccountSnapshotDTO> allSummedByAsserts = getAllSummedByAsserts();
-        return convertor.convertSnapshotToLineChar(allSummedByAsserts);
+    public UserAccountSnapshotChatDTO getAllSummedByAssertsAsLineChart() {
+        return converter.convertSnapshotToLineChart(getAllSummedByAsserts());
     }
 
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYearAsBarChat() {
+    public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYearAsBarChart() {
         Map<UserDTO, Map<Integer, List<UserAccountSnapshotDTO>>> groupByUserAndYear = getAllSummedByAsserts().stream()
                 .collect(groupingBy(UserAccountSnapshotDTO::getUser, groupingBy(s -> s.getDate().getYear())));
 
@@ -100,7 +99,7 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
             }
         }));
 
-        return convertor.convertSnapshotToBarChar(userAmountPerYear, groupByUserAndYear);
+        return converter.convertSnapshotToBarChart(userAmountPerYear, groupByUserAndYear);
     }
 
     public List<UserAccountSnapshotDTO> getAllSummedByAsserts() {
