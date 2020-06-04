@@ -14,7 +14,8 @@ export class ListAccountSnapshotComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAccountSnapshotsAsLine();
-    this.getAccountSnapshotAsBar();
+    this.getAccountSnapshotsAsBar();
+    this.getAccountSnapshotsAsPie();
   }
 
   getAccountSnapshotsAsLine() {
@@ -65,9 +66,9 @@ export class ListAccountSnapshotComponent implements OnInit {
     });
   }
 
-  getAccountSnapshotAsBar() {
+  getAccountSnapshotsAsBar() {
 
-    this.accountSnapshotService.getAccountSnapshotsByYear().then(result => {
+    this.accountSnapshotService.getAccountSnapshotsAsBar().then(result => {
 
       const labels = result.dateLabels;
       const dataSets = new Array;
@@ -104,6 +105,23 @@ export class ListAccountSnapshotComponent implements OnInit {
         data: {
           labels: labels,
           datasets: dataSets
+        }
+      });
+    });
+  }
+
+  getAccountSnapshotsAsPie() {
+
+    this.accountSnapshotService.getAccountSnapshotsAsPie().then(result => {
+
+      new Chart(document.getElementById("pie"), {
+        type: 'pie',
+        data: {
+          labels: result.labels,
+          datasets: [{
+            backgroundColor: ["#fdd700", "#8e5ea2","#f36e3a","#3cba9f"],
+            data: result.data
+          }]
         }
       });
     });

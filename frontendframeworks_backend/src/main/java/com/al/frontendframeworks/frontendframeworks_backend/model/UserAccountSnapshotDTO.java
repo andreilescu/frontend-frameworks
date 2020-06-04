@@ -7,6 +7,7 @@ public class UserAccountSnapshotDTO {
 
     private Integer id;
     private UserDTO user;
+    private SnapshotTypeDTO type;
     private LocalDate date;
     private Integer amount;
 
@@ -26,6 +27,14 @@ public class UserAccountSnapshotDTO {
         this.user = user;
     }
 
+    public SnapshotTypeDTO getType() {
+        return type;
+    }
+
+    public void setType(final SnapshotTypeDTO type) {
+        this.type = type;
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -40,5 +49,18 @@ public class UserAccountSnapshotDTO {
 
     public void setAmount(final Integer amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserAccountSnapshotDTO that = (UserAccountSnapshotDTO) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

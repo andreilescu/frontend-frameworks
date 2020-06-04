@@ -1,11 +1,10 @@
 package com.al.frontendframeworks.frontendframeworks_backend.model;
 
-import java.util.Date;
-
 public class UserAccountSnapshotRequestDTO {
 
     private Integer id;
     private Integer userId;
+    private String type;
     private String date;
     private Integer amount;
 
@@ -23,6 +22,14 @@ public class UserAccountSnapshotRequestDTO {
 
     public void setUserId(final Integer userId) {
         this.userId = userId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(final String type) {
+        this.type = type;
     }
 
     public String getDate() {

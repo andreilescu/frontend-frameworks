@@ -14,6 +14,10 @@ public class UserAccountSnapshot {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne()
+    @JoinColumn(name = "snapshotType_id", nullable = false)
+    private SnapshotType type;
+
     @Column(nullable = false)
     private LocalDate date;
 
@@ -37,6 +41,14 @@ public class UserAccountSnapshot {
 
     public void setUser(final User user) {
         this.user = user;
+    }
+
+    public SnapshotType getType() {
+        return type;
+    }
+
+    public void setType(final SnapshotType type) {
+        this.type = type;
     }
 
     public LocalDate getDate() {

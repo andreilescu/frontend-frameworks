@@ -14,16 +14,19 @@ export class AccountSnapshotService {
   private PROXY = this.HOST + ":" + this.PORT;
   private ACCOUNT_SNAPSHOTS = "/accountSnapshots";
   private SUMMED_BY_ASSERTS = "/summedByAsserts";
-  private AS_LINE = "/asLine";
-  private BY_YEAR = "/years";
+  private YEARS_AS_LINE = "/years/asLine";
+  private YEARS_BY_BAR = "/years/asBar";
+  private LATEST_AS_PIE = "/latest/asPie";
   private ACCOUNT_SNAPSHOTS_SUMMED_BY_ASSERTS = this.ACCOUNT_SNAPSHOTS + this.SUMMED_BY_ASSERTS;
-  private ACCOUNT_SNAPSHOTS_AS_LINE = this.ACCOUNT_SNAPSHOTS + this.AS_LINE;
-  private ACCOUNT_SNAPSHOTS_BY_YEAR = this.ACCOUNT_SNAPSHOTS + this.BY_YEAR;
+  private ACCOUNT_SNAPSHOTS_AS_LINE = this.ACCOUNT_SNAPSHOTS + this.YEARS_AS_LINE;
+  private ACCOUNT_SNAPSHOTS_YEARS_AS_BAR = this.ACCOUNT_SNAPSHOTS + this.YEARS_BY_BAR;
+  private ACCOUNT_SNAPSHOTS_LATEST_AS_PIE = this.ACCOUNT_SNAPSHOTS + this.LATEST_AS_PIE;
 
   url = this.PROXY + this.ACCOUNT_SNAPSHOTS;
   urlSummedByDate = this.PROXY + this.ACCOUNT_SNAPSHOTS_SUMMED_BY_ASSERTS;
   urlAsLine = this.PROXY + this.ACCOUNT_SNAPSHOTS_AS_LINE;
-  urlByYear = this.PROXY + this.ACCOUNT_SNAPSHOTS_BY_YEAR;
+  urlAsBar = this.PROXY + this.ACCOUNT_SNAPSHOTS_YEARS_AS_BAR;
+  urlAsPie = this.PROXY + this.ACCOUNT_SNAPSHOTS_LATEST_AS_PIE;
 
     constructor(private httpClient: HttpClient) {
   }
@@ -44,12 +47,19 @@ export class AccountSnapshotService {
       })
   }
 
-  public getAccountSnapshotsByYear(): Promise<any> {
-    return this.httpClient.get(this.urlByYear)
+  public getAccountSnapshotsAsBar(): Promise<any> {
+    return this.httpClient.get(this.urlAsBar)
       .toPromise()
       .then(response => {
         return response;
       })
   }
 
+  public getAccountSnapshotsAsPie(): Promise<any> {
+    return this.httpClient.get(this.urlAsPie)
+      .toPromise()
+      .then(response => {
+        return response;
+      })
+  }
 }

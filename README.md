@@ -13,7 +13,7 @@ To create a connection to db the following steps should be performed:
                 -e MYSQL_DATABASE=test
                 -e MYSQL_USER=sa
                 -e MYSQL_PASSWORD=secret
-                -d mysql:5.7   
+                -d mysql:8.0.15   
         3. TODO move to particular file (*.yml) and trigger it via spring app
         
         

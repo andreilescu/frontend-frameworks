@@ -1,5 +1,6 @@
 package com.al.frontendframeworks.frontendframeworks_backend.controller;
 
+import com.al.frontendframeworks.frontendframeworks_backend.facade.UserFacade;
 import com.al.frontendframeworks.frontendframeworks_backend.model.User;
 import com.al.frontendframeworks.frontendframeworks_backend.model.UserDTO;
 import com.al.frontendframeworks.frontendframeworks_backend.model.UserRequestDTO;
@@ -22,17 +23,19 @@ public class UserController extends AbstractController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserFacade userFacade;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public void addUser(@RequestBody final UserRequestDTO request) {
-        saveUser(request);
+        userFacade.saveUser(request);
     }
 
     @PostMapping("/quickAdd")
     @ResponseStatus(HttpStatus.CREATED)
     public void quickAddUsers(@RequestBody final List<UserRequestDTO> request) {
-        request.forEach(this::saveUser);
+        request.forEach(userFacade::saveUser);
     }
 
     @DeleteMapping("/{userId}")
@@ -48,11 +51,5 @@ public class UserController extends AbstractController {
                 .map(user -> getMapper(User.class, UserDTO.class)
                         .map(user, UserDTO.class))
                 .collect(toList());
-    }
-
-    private void saveUser(@RequestBody final UserRequestDTO request) {
-        User user = new User();
-        user.setName(request.getName());
-        userRepository.save(user);
     }
 }

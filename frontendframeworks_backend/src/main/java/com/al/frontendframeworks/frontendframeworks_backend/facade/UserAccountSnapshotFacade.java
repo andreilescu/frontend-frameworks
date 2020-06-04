@@ -2,6 +2,7 @@ package com.al.frontendframeworks.frontendframeworks_backend.facade;
 
 import com.al.frontendframeworks.frontendframeworks_backend.converter.UserAccountSnapshotToChatConverter;
 import com.al.frontendframeworks.frontendframeworks_backend.model.*;
+import com.al.frontendframeworks.frontendframeworks_backend.repository.SnapshotTypeRepository;
 import com.al.frontendframeworks.frontendframeworks_backend.repository.UserAccountSnapshotRepository;
 import com.al.frontendframeworks.frontendframeworks_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,7 @@ import java.util.*;
 
 import static java.util.Spliterator.ORDERED;
 import static java.util.Spliterators.spliteratorUnknownSize;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 import static java.util.stream.StreamSupport.stream;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 
@@ -24,6 +24,8 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
     private UserAccountSnapshotRepository userAccountSnapshotRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SnapshotTypeRepository snapshotTypeRepository;
     @Autowired
     private UserAccountSnapshotToChatConverter converter;
 
@@ -61,7 +63,7 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
     }
 
     public UserAccountSnapshotChatDTO getAllSummedByAssertsAsLineChart() {
-        return converter.convertSnapshotToLineChart(getAllSummedByAsserts());
+        return converter.convertSnapshotsToLineChart(getAllSummedByAsserts());
     }
 
     public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYearAsBarChart() {
@@ -99,7 +101,7 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
             }
         }));
 
-        return converter.convertSnapshotToBarChart(userAmountPerYear, groupByUserAndYear);
+        return converter.convertSnapshotsToBarChart(userAmountPerYear, groupByUserAndYear);
     }
 
     public List<UserAccountSnapshotDTO> getAllSummedByAsserts() {
@@ -124,6 +126,31 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
                 .collect(toList());
     }
 
+    public UserAccountSnapshotPieChartDTO getLatestAssertsAsPie() {
+        // filter all snapshots by previous month
+        // set month to previous (current - 1)
+        // set day of the month to first (1) day of the month
+        LocalDate firstDateOfLastMonth = LocalDate.now()
+                .minusMonths(1)
+                .withDayOfMonth(1);
+
+        Map<SnapshotTypeDTO, List<UserAccountSnapshotDTO>> lastMonthSnapshotsGroupedByType = getAll().stream()
+                .filter(snapshot -> firstDateOfLastMonth.equals(snapshot.getDate()))
+                .collect(groupingBy(UserAccountSnapshotDTO::getType));
+
+        Map<String, Integer> lastMonthSnapshotsSummedByType = lastMonthSnapshotsGroupedByType.entrySet().stream()
+                .map(entry -> {
+                    String key = entry.getKey().getName();
+                    Integer value = entry.getValue().stream()
+                            .map(UserAccountSnapshotDTO::getAmount)
+                            .reduce(0, Integer::sum);
+                    return new AbstractMap.SimpleEntry<>(key, value);
+                })
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+       return converter.convertSnapshotsToPieChart(lastMonthSnapshotsSummedByType);
+    }
+
     public void deleteAll() {
         userAccountSnapshotRepository.deleteAll();
     }
@@ -139,6 +166,8 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
         // '2011-12-03 - 'YYYY-MM-dd''
         accountSnapshot.setDate(LocalDate.parse(request.getDate()));
         accountSnapshot.setAmount(request.getAmount());
+        snapshotTypeRepository.findById(request.getType())
+                .ifPresent(accountSnapshot::setType);
         userAccountSnapshotRepository.save(accountSnapshot);
     }
 }

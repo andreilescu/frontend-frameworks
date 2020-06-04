@@ -1,6 +1,7 @@
 package com.al.frontendframeworks.frontendframeworks_backend.controller;
 
 import com.al.frontendframeworks.frontendframeworks_backend.facade.UserAccountSnapshotFacade;
+import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotPieChartDTO;
 import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotDTO;
 import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotChatDTO;
 import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotRequestDTO;
@@ -47,16 +48,22 @@ public class UserAccountSnapshotController extends AbstractController {
         return userAccountSnapshotFacade.getAllSummedByAsserts();
     }
 
-    @GetMapping("/asLine")
+    @GetMapping("/years/asLine")
     @ResponseBody
     public UserAccountSnapshotChatDTO getAllSummedByAssertsAsLineChart() {
         return userAccountSnapshotFacade.getAllSummedByAssertsAsLineChart();
     }
 
-    @GetMapping("/years")
+    @GetMapping("/years/asBar")
     @ResponseBody
     public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYearAsBarChart() {
         return userAccountSnapshotFacade.getAllSummedByAssertsGroupByYearAsBarChart();
+    }
+
+    @GetMapping("/latest/asPie")
+    @ResponseBody
+    public UserAccountSnapshotPieChartDTO getLatestAssertsAsPie() {
+        return userAccountSnapshotFacade.getLatestAssertsAsPie();
     }
 
     @DeleteMapping
