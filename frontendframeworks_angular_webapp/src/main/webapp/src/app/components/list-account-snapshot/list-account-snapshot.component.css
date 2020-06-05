@@ -1,7 +1,24 @@
-.docs-example-viewer-body {
-  padding: 30px;
+.chart-viewer-body {
+  padding: 10px;
 }
 
-.mat-cart-overview {
-  max-width: 45%;
+.chart-wrapper {
+  padding: 2%;
+  display: inline-block;
+}
+
+.main.chart-wrapper {
+  width: 100%;
+}
+
+.main.chart-wrapper > mat-card-content {
+  height: 300px;
+}
+
+.sub.chart-wrapper {
+  width: 50%;
+}
+
+.sub.chart-wrapper > mat-card-content {
+  height: 200px;
 }

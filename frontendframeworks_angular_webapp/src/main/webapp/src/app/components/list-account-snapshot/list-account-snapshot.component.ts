@@ -38,17 +38,17 @@ export class ListAccountSnapshotComponent implements OnInit {
       const dataStyles = [
         {
           fill: false,
-          borderColor: "#d5d5d5"
+          borderColor: "#3cba9f"
         },
         {
           fill: true,
           borderColor: "#afdcff",
-          backgroundColor: "#cfeeff"
+          backgroundColor: "#3e95cd"
         },
         {
           fill: true,
-          borderColor: "#c45850",
-          backgroundColor: "#fcb5af"
+          borderColor: "#ca9ddc",
+          backgroundColor: "#8e5ea2"
         }
       ];
 
@@ -61,6 +61,9 @@ export class ListAccountSnapshotComponent implements OnInit {
         data: {
           labels: labels,
           datasets: dataSets
+        },
+        options: {
+          maintainAspectRatio: false
         }
       });
     });
@@ -105,6 +108,9 @@ export class ListAccountSnapshotComponent implements OnInit {
         data: {
           labels: labels,
           datasets: dataSets
+        },
+        options: {
+          maintainAspectRatio: false
         }
       });
     });
@@ -119,9 +125,12 @@ export class ListAccountSnapshotComponent implements OnInit {
         data: {
           labels: result.labels,
           datasets: [{
-            backgroundColor: ["#fdd700", "#8e5ea2","#f36e3a","#3cba9f"],
+            backgroundColor: ["#fdd700", "#8e5ea2", "#f36e3a", "#3cba9f"],
             data: result.data
           }]
+        },
+        options: {
+          maintainAspectRatio: false
         }
       });
     });
