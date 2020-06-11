@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -11,55 +11,44 @@ export class AccountSnapshotService {
    */
   private HOST = "http://localhost";
   private PORT = "8080";
-  private PROXY = this.HOST + ":" + this.PORT;
-  private ACCOUNT_SNAPSHOTS = "/accountSnapshots";
-  private SUMMED_BY_ASSERTS = "/summedByAsserts";
-  private YEARS_AS_LINE = "/years/asLine";
-  private YEARS_BY_BAR = "/years/asBar";
-  private LATEST_AS_PIE = "/latest/asPie";
-  private ACCOUNT_SNAPSHOTS_SUMMED_BY_ASSERTS = this.ACCOUNT_SNAPSHOTS + this.SUMMED_BY_ASSERTS;
-  private ACCOUNT_SNAPSHOTS_AS_LINE = this.ACCOUNT_SNAPSHOTS + this.YEARS_AS_LINE;
-  private ACCOUNT_SNAPSHOTS_YEARS_AS_BAR = this.ACCOUNT_SNAPSHOTS + this.YEARS_BY_BAR;
-  private ACCOUNT_SNAPSHOTS_LATEST_AS_PIE = this.ACCOUNT_SNAPSHOTS + this.LATEST_AS_PIE;
+  private PROXY = `${this.HOST}:${this.PORT}`;
 
-  url = this.PROXY + this.ACCOUNT_SNAPSHOTS;
-  urlSummedByDate = this.PROXY + this.ACCOUNT_SNAPSHOTS_SUMMED_BY_ASSERTS;
-  urlAsLine = this.PROXY + this.ACCOUNT_SNAPSHOTS_AS_LINE;
-  urlAsBar = this.PROXY + this.ACCOUNT_SNAPSHOTS_YEARS_AS_BAR;
-  urlAsPie = this.PROXY + this.ACCOUNT_SNAPSHOTS_LATEST_AS_PIE;
+  summedByDateUrl = `${this.PROXY}/accountSnapshots/summedByAssert`;
+  asLineUrl = `${this.PROXY}/accountSnapshots/years/asLine`;
+  monthlyGrowthAsLineUrl = `${this.PROXY}/accountSnapshots/years/monthlyGrowth/asLine`;
+  asBarUrl = `${this.PROXY}/accountSnapshots/years/asBar`;
+  asPieUrl = `${this.PROXY}/accountSnapshots/latest/asPie`;
 
-    constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) {
   }
 
   public getAccountSnapshotsSummedByAsserts(): Promise<any> {
-    return this.httpClient.get(this.urlSummedByDate)
+    return this.httpClient.get(this.summedByDateUrl)
       .toPromise()
-      .then(response => {
-        return response;
-      })
+      .then(response => response)
   }
 
   public getAccountSnapshotsAsLine(): Promise<any> {
-    return this.httpClient.get(this.urlAsLine)
+    return this.httpClient.get(this.asLineUrl)
       .toPromise()
-      .then(response => {
-        return response;
-      })
+      .then(response => response)
+  }
+
+  public getAccountSnapshotsMonthlyGrowthAsLine(): Promise<any> {
+    return this.httpClient.get(this.monthlyGrowthAsLineUrl)
+      .toPromise()
+      .then(response => response)
   }
 
   public getAccountSnapshotsAsBar(): Promise<any> {
-    return this.httpClient.get(this.urlAsBar)
+    return this.httpClient.get(this.asBarUrl)
       .toPromise()
-      .then(response => {
-        return response;
-      })
+      .then(response => response)
   }
 
   public getAccountSnapshotsAsPie(): Promise<any> {
-    return this.httpClient.get(this.urlAsPie)
+    return this.httpClient.get(this.asPieUrl)
       .toPromise()
-      .then(response => {
-        return response;
-      })
+      .then(response => response)
   }
 }

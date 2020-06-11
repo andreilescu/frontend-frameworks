@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 import static java.util.Spliterator.ORDERED;
 import static java.util.Spliterators.spliteratorUnknownSize;
@@ -66,6 +68,27 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
         return converter.convertSnapshotsToLineChart(getAllSummedByAsserts());
     }
 
+    public UserAccountSnapshotChatDTO getAllSummedByAssertsIncreaseByMonthGroupByYearAsLineChart() {
+        Map<UserDTO, List<UserAccountSnapshotDTO>> sortedSummedAsserts = getAllSummedByAsserts().stream()
+                .sorted(Comparator.comparing(UserAccountSnapshotDTO::getDate))
+                .collect(groupingBy(UserAccountSnapshotDTO::getUser));
+        List<UserAccountSnapshotDTO> increasedByMonth = sortedSummedAsserts.entrySet().stream()
+                .peek(entry -> {
+                    AtomicInteger index = new AtomicInteger();
+                    entry.getValue().forEach(snapshot -> {
+                        int nextIndex = index.incrementAndGet();
+                        int monthIncrease = nextIndex <= entry.getValue().size() - 1
+                                ? entry.getValue().get(nextIndex).getAmount() - snapshot.getAmount()
+                                : 0;
+                        snapshot.setAmount(monthIncrease);
+                    });
+                })
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .collect(toList());
+        return converter.convertSnapshotsToLineChart(increasedByMonth);
+    }
+
     public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYearAsBarChart() {
         Map<UserDTO, Map<Integer, List<UserAccountSnapshotDTO>>> groupByUserAndYear = getAllSummedByAsserts().stream()
                 .collect(groupingBy(UserAccountSnapshotDTO::getUser, groupingBy(s -> s.getDate().getYear())));
@@ -106,8 +129,7 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
 
     public List<UserAccountSnapshotDTO> getAllSummedByAsserts() {
         return getGroupByUserAndDate().values().stream()
-                .map(values -> values.values()
-                        .stream()
+                .map(values -> values.values().stream()
                         .map(snapshots -> {
                             final Integer summedAmount = snapshots
                                     .stream()
@@ -148,7 +170,7 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
                 })
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-       return converter.convertSnapshotsToPieChart(lastMonthSnapshotsSummedByType);
+        return converter.convertSnapshotsToPieChart(lastMonthSnapshotsSummedByType);
     }
 
     public void deleteAll() {

@@ -1,28 +1,72 @@
 <div class="chart-viewer-body">
-  <mat-card class="mat-card mat-focus-indicator main chart-wrapper">
-    <mat-card-header>
-      <mat-card-title>Asserts Overview</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <canvas id="line"></canvas>
-    </mat-card-content>
-  </mat-card>
 
-  <mat-card class="mat-card mat-focus-indicator sub chart-wrapper">
-    <mat-card-header>
-      <mat-card-title>Asserts Overview By Year</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <canvas id="bar"></canvas>
-    </mat-card-content>
-  </mat-card>
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+      </mat-expansion-panel-header>
+      <mat-card class="mat-card mat-focus-indicator main chart-wrapper">
+        <mat-card-header>
+          <mat-card-title>Asserts Overview</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <chart [id]="line"
+                 [type]="line"
+                 [dataSets]="lineDataSets"
+                 [result]="lineResult">
+          </chart>
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
 
-  <mat-card class="mat-card mat-focus-indicator sub chart-wrapper">
-    <mat-card-header>
-      <mat-card-title>Latest Asserts Overview</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <canvas id="pie"></canvas>
-    </mat-card-content>
-  </mat-card>
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+      </mat-expansion-panel-header>
+      <mat-card class="mat-card mat-focus-indicator main chart-wrapper">
+        <mat-card-header>
+          <mat-card-title>Asserts Overview Month Increase</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <chart [id]="monthlyGrowthLine"
+                 [type]="line"
+                 [dataSets]="monthlyGrowthLineDataSets"
+                 [result]="monthlyGrowthLineResult">
+          </chart>
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+      </mat-expansion-panel-header>
+      <mat-card class="mat-card mat-focus-indicator sub chart-wrapper">
+        <mat-card-header>
+          <mat-card-title>Asserts Overview By Year</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <chart [id]="bar"
+                 [type]="bar"
+                 [dataSets]="barDataSets"
+                 [result]="barResult">
+          </chart>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="mat-card mat-focus-indicator sub chart-wrapper">
+        <mat-card-header>
+          <mat-card-title>Latest Asserts Overview</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <pie-chart [id]="pie"
+                     [type]="pie"
+                     [dataSets]="pieDataSets"
+                     [result]="pieResult">
+          </pie-chart>
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
+
 </div>

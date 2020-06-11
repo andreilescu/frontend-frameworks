@@ -66,6 +66,12 @@ public class UserAccountSnapshotController extends AbstractController {
         return userAccountSnapshotFacade.getLatestAssertsAsPie();
     }
 
+    @GetMapping("/years/monthlyGrowth/asLine")
+    @ResponseBody
+    public UserAccountSnapshotChatDTO getAllSummedByAssertsIncreaseByMonthGroupByYearAsLineChart() {
+        return userAccountSnapshotFacade.getAllSummedByAssertsIncreaseByMonthGroupByYearAsLineChart();
+    }
+
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     public void deleteAllUserAccountSnapshots() {
