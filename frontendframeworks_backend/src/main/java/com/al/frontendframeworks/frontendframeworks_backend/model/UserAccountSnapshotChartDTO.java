@@ -3,9 +3,9 @@ package com.al.frontendframeworks.frontendframeworks_backend.model;
 import java.util.List;
 import java.util.Map;
 
-public class UserAccountSnapshotChatDTO {
+public class UserAccountSnapshotChartDTO {
     private List<String> dateLabels;
-    private Map<String, List<Integer>> snapshotsByUser;
+    private Map<String, List<Integer>> data;
 
     public List<String> getDateLabels() {
         return dateLabels;
@@ -15,11 +15,11 @@ public class UserAccountSnapshotChatDTO {
         this.dateLabels = dateLabels;
     }
 
-    public Map<String, List<Integer>> getSnapshotsByUser() {
-        return snapshotsByUser;
+    public Map<String, List<Integer>> getData() {
+        return data;
     }
 
-    public void setSnapshotsByUser(Map<String, List<Integer>> snapshotsByUser) {
-        this.snapshotsByUser = snapshotsByUser;
+    public void setData(Map<String, List<Integer>> data) {
+        this.data = data;
     }
 }

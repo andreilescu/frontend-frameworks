@@ -45,7 +45,7 @@ export class ChartComponent implements OnInit {
       });
       return mp;
     });
-    const map = mapObjectToMap(result.snapshotsByUser)
+    const map = mapObjectToMap(result.data)
     map.forEach((value, key) => {
       dataSets.push({label: key, data: value});
     })

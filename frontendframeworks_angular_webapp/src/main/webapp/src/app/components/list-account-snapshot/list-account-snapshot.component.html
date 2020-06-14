@@ -25,13 +25,32 @@
       </mat-expansion-panel-header>
       <mat-card class="mat-card mat-focus-indicator main chart-wrapper">
         <mat-card-header>
-          <mat-card-title>Asserts Overview Month Increase</mat-card-title>
+          <mat-card-title>Asserts Overview Monthly Growth</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <chart [id]="monthlyGrowthLine"
                  [type]="line"
                  [dataSets]="monthlyGrowthLineDataSets"
                  [result]="monthlyGrowthLineResult">
+          </chart>
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+      </mat-expansion-panel-header>
+      <mat-card class="mat-card mat-focus-indicator main chart-wrapper">
+        <mat-card-header>
+          <mat-card-title>Asserts Overview Monthly Growth By Asserts</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <chart [id]="monthlyGrowthByAssertsLine"
+                 [type]="line"
+                 [dataSets]="monthlyGrowthByAssertsLineDataSets"
+                 [result]="monthlyGrowthByAssertLineResult">
           </chart>
         </mat-card-content>
       </mat-card>

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountSnapshotService} from "../../services/account-snapshot.service";
-import {Chart} from "chart.js"
 
 @Component({
   selector: 'app-list-account-snapshot',
@@ -12,6 +11,7 @@ export class ListAccountSnapshotComponent implements OnInit {
   bar: string = 'bar';
   pie: string = 'pie'
   monthlyGrowthLine: string = 'monthlyGrowthLine';
+  monthlyGrowthByAssertsLine: string = 'monthlyGrowthByAssertsLine';
   lineDataSets = [
     {
       fill: false,
@@ -40,6 +40,24 @@ export class ListAccountSnapshotComponent implements OnInit {
       borderColor: "#8e5ea2"
     }
   ];
+  monthlyGrowthByAssertsLineDataSets = [
+    {
+      fill: false,
+      borderColor: "#fdd700"
+    },
+    {
+      fill: false,
+      borderColor: "#8e5ea2"
+    },
+    {
+      fill: false,
+      borderColor: "#f36e3a"
+    },
+    {
+      fill: false,
+      borderColor: "#3cba9f"
+    }
+  ];
   barDataSets = [
     {
       backgroundColor: "#3cba9f"
@@ -55,6 +73,7 @@ export class ListAccountSnapshotComponent implements OnInit {
 
   lineResult: Promise<any>
   monthlyGrowthLineResult: Promise<any>
+  monthlyGrowthByAssertLineResult: Promise<any>
   barResult: Promise<any>
   pieResult: Promise<any>
 
@@ -64,6 +83,7 @@ export class ListAccountSnapshotComponent implements OnInit {
   ngOnInit(): void {
     this.getAccountSnapshotsAsLine();
     this.getAccountSnapshotsMonthlyGrowthAsLine();
+    this.getAccountSnapshotsMonthlyGrowthByAssertsAsLine();
     this.getAccountSnapshotsAsBar();
     this.getAccountSnapshotsAsPie();
   }
@@ -74,6 +94,10 @@ export class ListAccountSnapshotComponent implements OnInit {
 
   getAccountSnapshotsMonthlyGrowthAsLine() {
     this.monthlyGrowthLineResult = this.accountSnapshotService.getAccountSnapshotsMonthlyGrowthAsLine();
+  }
+
+  getAccountSnapshotsMonthlyGrowthByAssertsAsLine() {
+    this.monthlyGrowthByAssertLineResult = this.accountSnapshotService.getAccountSnapshotsMonthlyGrowthByAssertsAsLine();
   }
 
   getAccountSnapshotsAsBar() {

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 import static java.util.Spliterator.ORDERED;
 import static java.util.Spliterators.spliteratorUnknownSize;
@@ -64,11 +63,11 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
                 .collect(toList());
     }
 
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsAsLineChart() {
+    public UserAccountSnapshotChartDTO getAllSummedByAssertsAsLineChart() {
         return converter.convertSnapshotsToLineChart(getAllSummedByAsserts());
     }
 
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsIncreaseByMonthGroupByYearAsLineChart() {
+    public UserAccountSnapshotChartDTO getAllSummedByAssertsIncreaseByMonthGroupByYearAsLineChart() {
         Map<UserDTO, List<UserAccountSnapshotDTO>> sortedSummedAsserts = getAllSummedByAsserts().stream()
                 .sorted(Comparator.comparing(UserAccountSnapshotDTO::getDate))
                 .collect(groupingBy(UserAccountSnapshotDTO::getUser));
@@ -89,7 +88,7 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
         return converter.convertSnapshotsToLineChart(increasedByMonth);
     }
 
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYearAsBarChart() {
+    public UserAccountSnapshotChartDTO getAllSummedByAssertsGroupByYearAsBarChart() {
         Map<UserDTO, Map<Integer, List<UserAccountSnapshotDTO>>> groupByUserAndYear = getAllSummedByAsserts().stream()
                 .collect(groupingBy(UserAccountSnapshotDTO::getUser, groupingBy(s -> s.getDate().getYear())));
 
@@ -171,6 +170,27 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         return converter.convertSnapshotsToPieChart(lastMonthSnapshotsSummedByType);
+    }
+
+    public UserAccountSnapshotChartDTO getMonthlyGrowthByAssertsAsLineChart() {
+        Map<SnapshotTypeDTO, Map<LocalDate, List<UserAccountSnapshotDTO>>> groupByTypeAndDate = getAll().stream()
+                .collect(groupingBy(UserAccountSnapshotDTO::getType, groupingBy(UserAccountSnapshotDTO::getDate)));
+        Map<SnapshotTypeDTO, Map<LocalDate, Integer>> monthlyGrowthByType = groupByTypeAndDate.entrySet().stream()
+                .map(typeEntry -> {
+                    Map<LocalDate, Integer> entriesSumByDate = typeEntry.getValue().entrySet().stream()
+                            .map(dateEntry -> new AbstractMap.SimpleEntry<>(dateEntry.getKey(),
+                                    dateEntry.getValue().stream()
+                                            .map(UserAccountSnapshotDTO::getAmount)
+                                            .reduce(0, Integer::sum)))
+                            .sorted(Map.Entry.comparingByKey())
+                            .collect(toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                    (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+                    return new AbstractMap.SimpleEntry<>(typeEntry.getKey(), entriesSumByDate);
+                })
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+        return converter.convertTypesToLineChart(monthlyGrowthByType);
     }
 
     public void deleteAll() {

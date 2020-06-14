@@ -1,9 +1,9 @@
 package com.al.frontendframeworks.frontendframeworks_backend.controller;
 
 import com.al.frontendframeworks.frontendframeworks_backend.facade.UserAccountSnapshotFacade;
-import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotPieChartDTO;
+import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotChartDTO;
 import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotDTO;
-import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotChatDTO;
+import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotPieChartDTO;
 import com.al.frontendframeworks.frontendframeworks_backend.model.UserAccountSnapshotRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,13 +50,13 @@ public class UserAccountSnapshotController extends AbstractController {
 
     @GetMapping("/years/asLine")
     @ResponseBody
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsAsLineChart() {
+    public UserAccountSnapshotChartDTO getAllSummedByAssertsAsLineChart() {
         return userAccountSnapshotFacade.getAllSummedByAssertsAsLineChart();
     }
 
     @GetMapping("/years/asBar")
     @ResponseBody
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsGroupByYearAsBarChart() {
+    public UserAccountSnapshotChartDTO getAllSummedByAssertsGroupByYearAsBarChart() {
         return userAccountSnapshotFacade.getAllSummedByAssertsGroupByYearAsBarChart();
     }
 
@@ -68,8 +68,14 @@ public class UserAccountSnapshotController extends AbstractController {
 
     @GetMapping("/years/monthlyGrowth/asLine")
     @ResponseBody
-    public UserAccountSnapshotChatDTO getAllSummedByAssertsIncreaseByMonthGroupByYearAsLineChart() {
+    public UserAccountSnapshotChartDTO getAllSummedByAssertsIncreaseByMonthGroupByYearAsLineChart() {
         return userAccountSnapshotFacade.getAllSummedByAssertsIncreaseByMonthGroupByYearAsLineChart();
+    }
+
+    @GetMapping("/months/monthlyGrowth/asserts/asLine")
+    @ResponseBody
+    public UserAccountSnapshotChartDTO getMonthlyGrowthByAssertsAsLineChart() {
+        return userAccountSnapshotFacade.getMonthlyGrowthByAssertsAsLineChart();
     }
 
     @DeleteMapping

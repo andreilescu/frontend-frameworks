@@ -13,17 +13,25 @@ export class AccountSnapshotService {
   private PORT = "8080";
   private PROXY = `${this.HOST}:${this.PORT}`;
 
-  summedByDateUrl = `${this.PROXY}/accountSnapshots/summedByAssert`;
+  // /accountSnapshots/months
+  yearsUrl = `${this.PROXY}/accountSnapshots/summedByAssert`;
+  // /accountSnapshots/months/asserts/asLine
   asLineUrl = `${this.PROXY}/accountSnapshots/years/asLine`;
+  // /accountSnapshots/months/asserts/monthlyGrowth/asLine
   monthlyGrowthAsLineUrl = `${this.PROXY}/accountSnapshots/years/monthlyGrowth/asLine`;
-  asBarUrl = `${this.PROXY}/accountSnapshots/years/asBar`;
-  asPieUrl = `${this.PROXY}/accountSnapshots/latest/asPie`;
+
+  monthlyGrowthByAssertsAsLineUrl = `${this.PROXY}/accountSnapshots/months/monthlyGrowth/asserts/asLine`;
+
+  // /accountSnapshots/years/asserts/yearlyGrowth/asLine
+  yearlyGrowthAsBarUrl = `${this.PROXY}/accountSnapshots/years/asBar`;
+  // /accountSnapshots/months/latest/asPie
+  latestMonthAsPieUrl = `${this.PROXY}/accountSnapshots/latest/asPie`;
 
   constructor(private httpClient: HttpClient) {
   }
 
   public getAccountSnapshotsSummedByAsserts(): Promise<any> {
-    return this.httpClient.get(this.summedByDateUrl)
+    return this.httpClient.get(this.yearsUrl)
       .toPromise()
       .then(response => response)
   }
@@ -40,14 +48,20 @@ export class AccountSnapshotService {
       .then(response => response)
   }
 
+  public getAccountSnapshotsMonthlyGrowthByAssertsAsLine(): Promise<any> {
+    return this.httpClient.get(this.monthlyGrowthByAssertsAsLineUrl)
+      .toPromise()
+      .then(response => response)
+  }
+
   public getAccountSnapshotsAsBar(): Promise<any> {
-    return this.httpClient.get(this.asBarUrl)
+    return this.httpClient.get(this.yearlyGrowthAsBarUrl)
       .toPromise()
       .then(response => response)
   }
 
   public getAccountSnapshotsAsPie(): Promise<any> {
-    return this.httpClient.get(this.asPieUrl)
+    return this.httpClient.get(this.latestMonthAsPieUrl)
       .toPromise()
       .then(response => response)
   }
