@@ -4,14 +4,10 @@
 **/.idea/**
 *.properties
 
-
 # compiled output
 **/dist
 **/tmp
 **/out-tsc
-
-# dependencies
-**/node_modules
 
 ### IntelliJ IDEA ###
 .idea
