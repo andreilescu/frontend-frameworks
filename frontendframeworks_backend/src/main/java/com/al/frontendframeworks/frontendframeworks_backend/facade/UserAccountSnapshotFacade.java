@@ -148,15 +148,14 @@ public class UserAccountSnapshotFacade extends AbstractFacade {
     }
 
     public UserAccountSnapshotPieChartDTO getLatestAssertsAsPie() {
-        // filter all snapshots by previous month
-        // set month to previous (current - 1)
-        // set day of the month to first (1) day of the month
-        LocalDate firstDateOfLastMonth = LocalDate.now()
-                .minusMonths(1)
-                .withDayOfMonth(1);
+        // get latest months from snapshot
+        LocalDate monthFromLatestSnapshot = getAll().stream()
+                .map(UserAccountSnapshotDTO::getDate)
+                .max(Comparator.naturalOrder())
+                .orElse(LocalDate.now());
 
         Map<SnapshotTypeDTO, List<UserAccountSnapshotDTO>> lastMonthSnapshotsGroupedByType = getAll().stream()
-                .filter(snapshot -> firstDateOfLastMonth.equals(snapshot.getDate()))
+                .filter(snapshot -> monthFromLatestSnapshot.equals(snapshot.getDate()))
                 .collect(groupingBy(UserAccountSnapshotDTO::getType));
 
         Map<String, Integer> lastMonthSnapshotsSummedByType = lastMonthSnapshotsGroupedByType.entrySet().stream()
